@@ -1,10 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddEditMovieActivity">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Movie Details"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/titleEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Movie Title"
+        android:inputType="text"
+        android:padding="10dp"
+        android:background="@drawable/edittext_background"/>
+
+    <EditText
+        android:id="@+id/studioEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Studio"
+        android:inputType="text"
+        android:padding="10dp"
+        android:background="@drawable/edittext_background"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:id="@+id/ratingEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Rating (0.0 - 10.0)"
+        android:inputType="numberDecimal"
+        android:padding="10dp"
+        android:background="@drawable/edittext_background"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/addEditButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Movie"
+        android:textStyle="bold"
+        android:backgroundTint="@color/teal_700"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:padding="12dp"/>
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:textStyle="bold"
+        android:backgroundTint="@color/gray"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:padding="12dp"/>
+
+</LinearLayout>

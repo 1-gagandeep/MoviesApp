@@ -7,11 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviesapp.databinding.ActivityMovieListBinding
-import com.example.moviesapp.databinding.ActivityAddEditMovieBinding
-import com.example.moviesapp.databinding.ActivityLoginBinding
-import com.example.moviesapp.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
-//import com.google.firebase.firestore.FirebaseFirestore
 
 class MovieListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMovieListBinding
@@ -28,7 +24,7 @@ class MovieListActivity : AppCompatActivity() {
         viewModel.fetchMovies()
 
         viewModel.movies.observe(this) { movies ->
-            adapter.submitList(movies)
+            adapter.updateMovies(movies) // ✅ Use updateMovies() instead of submitList()
         }
 
         binding.addMovieButton.setOnClickListener {
@@ -51,12 +47,20 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        adapter = MovieAdapter { movie ->
-            val intent = Intent(this, AddEditMovieActivity::class.java)
-            intent.putExtra("MOVIE_ID", movie.id)
-            startActivity(intent)
-        }
+        adapter = MovieAdapter(
+            movies = emptyList(),
+            onEditClick = { movie ->
+                val intent = Intent(this, AddEditMovieActivity::class.java)
+                intent.putExtra("MOVIE_ID", movie.id.toString()) // ✅ Convert to String
+                startActivity(intent)
+            },
+            onDeleteClick = { movie ->
+                viewModel.deleteMovie(movie.toString())
+                Toast.makeText(this, "Movie deleted", Toast.LENGTH_SHORT).show()
+            }
+        )
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
     }
+
 }

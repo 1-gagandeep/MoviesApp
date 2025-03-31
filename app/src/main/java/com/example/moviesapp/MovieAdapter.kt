@@ -1,10 +1,8 @@
 package com.example.moviesapp
 
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviesapp.databinding.ItemMovieBinding
@@ -12,7 +10,7 @@ import com.example.moviesapp.databinding.ItemMovieBinding
 class MovieAdapter(
     private var movies: List<Movie>,
     private val onEditClick: (Movie) -> Unit,
-    private val onDeleteClick: (Movie) -> Unit
+    private val onDeleteClick: (String?) -> Unit // Changed to accept String? (movieId)
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -38,14 +36,17 @@ class MovieAdapter(
             binding.movieStudio.text = movie.studio
             binding.movieRating.text = "Rating: ${movie.rating}"
 
-            // Load the movie poster using Glide (assuming there's a URL field in Movie data class)
+            // Load the movie poster using Glide
             Glide.with(binding.movieThumbnail.context)
-                .load(movie.posterUrl) // Assuming 'posterUrl' exists in Movie data class
+                .load(movie.posterUrl)
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(binding.movieThumbnail)
 
             binding.editButton.setOnClickListener { onEditClick(movie) }
-            binding.deleteButton.setOnClickListener { onDeleteClick(movie) }
+            binding.deleteButton.setOnClickListener {
+                Log.d("MovieAdapter", "Deleting movie with ID: ${movie.id}")
+                onDeleteClick(movie.id) // Pass only the movie ID
+            }
         }
     }
 }

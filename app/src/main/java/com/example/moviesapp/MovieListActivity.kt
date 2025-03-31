@@ -20,7 +20,7 @@ class MovieListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         checkUserAuth()
-        setupRecyclerView()
+//        setupRecyclerView()
         viewModel.fetchMovies()
 
         viewModel.movies.observe(this) { movies ->
@@ -46,21 +46,21 @@ class MovieListActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupRecyclerView() {
-        adapter = MovieAdapter(
-            movies = emptyList(),
-            onEditClick = { movie ->
-                val intent = Intent(this, AddEditMovieActivity::class.java)
-                intent.putExtra("MOVIE_ID", movie.id.toString()) // ✅ Convert to String
-                startActivity(intent)
-            },
-            onDeleteClick = { movie ->
-                viewModel.deleteMovie(movie.toString())
-                Toast.makeText(this, "Movie deleted", Toast.LENGTH_SHORT).show()
-            }
-        )
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = adapter
-    }
+//    private fun setupRecyclerView() {
+//        adapter = MovieAdapter(
+//            movies = emptyList(),
+//            onEditClick = { movie ->
+//                val intent = Intent(this, AddEditMovieActivity::class.java)
+//                intent.putExtra("MOVIE_ID", movie.id.toString()) // ✅ Convert to String
+//                startActivity(intent)
+//            },
+//            onDeleteClick = { movie ->
+//                viewModel.deleteMovie(movie.toString())
+//                Toast.makeText(this, "Movie deleted", Toast.LENGTH_SHORT).show()
+//            }
+//        )
+//        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+//        binding.recyclerView.adapter = adapter
+//    }
 
 }

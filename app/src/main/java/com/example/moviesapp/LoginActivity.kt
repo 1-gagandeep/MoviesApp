@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            startActivity(Intent(this, MovieListActivity::class.java))
+                            startActivity(Intent(this, SearchActivity::class.java))
                             finish()
                         } else {
                             Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
